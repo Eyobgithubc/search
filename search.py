@@ -116,16 +116,13 @@ def depthFirstSearch(problem: SearchProblem):
 def breadthFirstSearch(problem: SearchProblem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    def breadthFirstSearch(problem):
-    """Search the shallowest nodes in the search tree first."""
-
-    # Initialize data structures
+    
     visited = set()
     solution = []
     queue = [(problem.getStartState(), [])] # Node and path leading to it
     parents = {}
 
-    # Loop until goal is found or queue is empty
+    
     while queue:
         node, path = queue.pop(0)
         if node in visited:
@@ -139,7 +136,7 @@ def breadthFirstSearch(problem: SearchProblem):
                 parents[child_node] = node
                 queue.append((child_node, path + [direction]))
 
-    # Backtrack to construct solution path
+  
     while solution and parents.get(solution[0]) is not None:
         solution = [visited[solution[0])] + solution
         solution[0] = parents[solution[0]]
@@ -151,25 +148,20 @@ def breadthFirstSearch(problem: SearchProblem):
 
 def uniformCostSearch(problem: SearchProblem):
     """Search the node of least total cost first."""
-    "*** YOUR CODE HERE ***"
-                    def uniform_cost_search(problem):
-    """Search the node of least total cost first."""
-
-    # Initialize data structures
-    visited = set()  # contains nodes which have been visited
-    parents = {}  # contains nodes and their parents
-    costs = {problem.getStartState(): 0}  # contains nodes and their corresponding costs
-    fringe = [(problem.getStartState(), None, 0)]  # contains nodes in the fringe list
-
-    # Loop while the fringe is not empty
+    "*** YOUR CODE HERE ***"           
+   
+    visited = set()  
+    parents = {}  
+    costs = {problem.getStartState(): 0}  
+    fringe = [(problem.getStartState(), None, 0)] 
     while fringe:
-        # Pop node with minimum cost from the fringe
+        
         node, direction, total_cost = min(fringe, key=lambda x: x[2])
         fringe.remove((node, direction, total_cost))
 
-        # Check if node is the goal state
+     
         if problem.isGoalState(node):
-            # Construct solution path by backtracking using stored parents
+           
             path = []
 
 
@@ -178,10 +170,10 @@ def uniformCostSearch(problem: SearchProblem):
                 node = parents[node]
             return path
 
-        # Mark node as visited
+   
         visited.add(node)
 
-        # Expand node and update fringe and costs
+       
         for child, child_direction, child_cost in problem.getSuccessors(node):
             if child not in visited:
                 new_cost = total_cost + child_cost
@@ -190,7 +182,7 @@ def uniformCostSearch(problem: SearchProblem):
                     parents[child] = node
                     costs[child] = new_cost
 
-    # If goal not reached, return empty list
+
     return []
 
     util.raiseNotDefined()
